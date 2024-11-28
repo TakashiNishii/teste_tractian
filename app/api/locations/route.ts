@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Company, Locations } from '../../enum/Types';
+import { Locations } from '../../enum/Types';
 
 
 export async function GET(request: Request) {

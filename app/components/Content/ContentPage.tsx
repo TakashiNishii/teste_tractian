@@ -7,10 +7,10 @@ import AssetInfo from './AssetInfo'
 import { Locations } from '../../enum/Types'
 
 const ContentPage = () => {
-  const { companySelected, setLocations } = useFiltersContext()
+  const { companySelected, setAssets } = useFiltersContext()
 
   useEffect(() => {
-    setLocations([])
+    setAssets([])
     if (!companySelected) return
     const fetchLocations = async () => {
       try {
@@ -22,14 +22,14 @@ const ContentPage = () => {
           },
         })
         const data = await request.json() as Locations[]
-        setLocations(data)
+        setAssets(data.map((location) => ({ ...location, typeAssets: 'location' })))
       } catch (error) {
         console.error(error)
-        setLocations([])
+        setAssets([])
       }
     }
     void fetchLocations()
-  }, [companySelected, setLocations])
+  }, [companySelected, setAssets])
 
   return (
     <div className='flex flex-col w-full p-4 gap-2 rounded border bg-secondary'>

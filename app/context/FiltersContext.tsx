@@ -1,22 +1,22 @@
 "use client"
 import React, { createContext, useContext, useEffect } from "react";
-import { Company, Locations, LocationsOrganized } from '../enum/Types'
+import { Company, Assets, AssetsOrganized } from '../enum/Types'
 
 export interface FiltersContextProps {
   companySelected?: Company;
   setCompanySelected: (company: Company) => void;
-  locations: Locations[];
-  setLocations: (locations: Locations[]) => void;
-  organizedLocations: LocationsOrganized[];
+  assets: Assets[];
+  setAssets: (assets: Assets[]) => void;
+  organizedAssets: AssetsOrganized[];
 }
 
 
 export const FiltersContext = createContext<FiltersContextProps>({
   companySelected: undefined,
   setCompanySelected: () => { },
-  locations: [],
-  setLocations: () => { },
-  organizedLocations: [],
+  assets: [],
+  setAssets: () => { },
+  organizedAssets: [],
 });
 
 export const useFiltersContext = () => useContext(FiltersContext);
@@ -29,16 +29,16 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
   const [companySelected, setCompanySelected] = React.useState<
     Company | undefined
   >(undefined);
-  const [locations, setLocations] = React.useState<Locations[]>([])
-  const [organizedLocations, setOrganizedLocations] = React.useState<LocationsOrganized[]>([])
+  const [assets, setAssets] = React.useState<Assets[]>([])
+  const [organizedAssets, setOrganizedAssets] = React.useState<AssetsOrganized[]>([])
 
   useEffect(() => {
-    organizeLocations()
-  }, [locations])
+    organizeAssets()
+  }, [assets])
 
-  const organizeLocations = () => {
-    const organized: LocationsOrganized[] = []
-    locations.forEach((location) => {
+  const organizeAssets = () => {
+    const organized: AssetsOrganized[] = []
+    assets.forEach((location) => {
       if (!location.parentId) {
         organized.push({
           ...location,
@@ -46,11 +46,11 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
         })
       }
     })
-    setOrganizedLocations(organized)
+    setOrganizedAssets(organized)
   }
 
-  const getChildren = (parentId: string): LocationsOrganized[] => {
-    return locations
+  const getChildren = (parentId: string): AssetsOrganized[] => {
+    return assets
       .filter((location) => location.parentId === parentId)
       .map((location) => ({
         ...location,
@@ -61,9 +61,9 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
   const values = {
     companySelected,
     setCompanySelected,
-    locations,
-    setLocations,
-    organizedLocations
+    assets,
+    setAssets,
+    organizedAssets
   }
   return (
     <FiltersContext.Provider value={values}>

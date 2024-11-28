@@ -1,20 +1,20 @@
 
-import { LocationsOrganized } from "../../enum/Types"
+import { AssetsOrganized } from "../../enum/Types"
 import { ChevronDownIcon, ChevronRightIcon, MapPinIcon } from "@heroicons/react/16/solid";
 import classNames from "classnames";
 import { useFiltersContext } from "../../context/FiltersContext";
 import { useState } from "react";
 
 interface AssetItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  location: LocationsOrganized;
+  asset: AssetsOrganized;
   typeAsset: string;
   level: number;
   isEmpty: boolean;
 }
 const AssetItem = (
-  { location, typeAsset, level, isEmpty, className }: AssetItemProps
+  { asset, typeAsset, level, isEmpty, className }: AssetItemProps
 ) => {
-  const { locations } = useFiltersContext()
+  const { assets } = useFiltersContext()
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -26,8 +26,8 @@ const AssetItem = (
   const paddingLeft = `${level * 1.5 + 0.75}rem`;
 
 
-  const verifyIsEmpty = (locationId: string) => {
-    return locations?.filter((location) => location.parentId === locationId).length === 0
+  const verifyIsEmpty = (assetId: string) => {
+    return assets?.filter((asset) => asset.parentId === assetId).length === 0
   }
   return (
     <>
@@ -55,15 +55,15 @@ const AssetItem = (
         }
 
         <span className="text-sm text-primary font-semibold">
-          {location?.name}
+          {asset?.name}
         </span>
       </div>
-      {!isEmpty && isExpanded && location.children && (
+      {!isEmpty && isExpanded && asset.children && (
         <div>
-          {location.children.map((child) => (
+          {asset.children.map((child) => (
             <AssetItem
               key={child.id}
-              location={child}
+              asset={child}
               isEmpty={verifyIsEmpty(child.id)}
               typeAsset={typeAsset}
               level={level + 1}

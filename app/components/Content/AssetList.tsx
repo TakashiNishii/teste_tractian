@@ -5,16 +5,16 @@ import AssetItem from "./AssetItem"
 
 const AssetList = () => {
 
-  const { organizedLocations } = useFiltersContext()
+  const { organizedAssets } = useFiltersContext()
 
   return (
     <div className="flex flex-col gap-2 px-1 py-2">
-      {organizedLocations.map((location) => (
+      {organizedAssets.map((asset) => (
         <AssetItem
-          key={location.id}
-          location={location}
-          isEmpty={location.children.length === 0}
-          typeAsset="location"
+          key={asset.id}
+          asset={asset}
+          isEmpty={asset.children.length === 0}
+          typeAsset={asset.typeAssets}
           level={0}
         />
       ))}

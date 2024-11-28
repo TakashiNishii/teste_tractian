@@ -8,7 +8,14 @@ export interface Locations {
   name: string
   parentId: string | null
 }
+export interface Assets extends Locations {
+  sensorId?: string | null
+  sensorType?: string | null
+  status?: string | null
+  gatewayId?: string | null
+  typeAssets: string
+}
 
-export interface LocationsOrganized extends Locations {
-  children: LocationsOrganized[]
+export interface AssetsOrganized extends Assets {
+  children: AssetsOrganized[]
 }

@@ -1,10 +1,11 @@
 
 import { AssetsOrganized } from "../../enum/Types"
-import { ChevronDownIcon, ChevronRightIcon, CubeIcon, MapPinIcon } from "@heroicons/react/16/solid";
+import { BoltIcon, ChevronDownIcon, ChevronRightIcon, MapPinIcon } from "@heroicons/react/16/solid";
 import classNames from "classnames";
 import { useFiltersContext } from "../../context/FiltersContext";
 import { useState } from "react";
 import Image from "next/image";
+import { CubeIcon } from "@heroicons/react/24/outline";
 
 interface AssetItemProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: AssetsOrganized;
@@ -33,7 +34,7 @@ const AssetItem = (
   return (
     <>
       <div
-        className={classNames("flex flex-row gap-1 cursor-pointer hover:bg-gray-200",
+        className={classNames("flex flex-row gap-1 cursor-pointer items-center hover:bg-gray-200",
           className,
           isEmpty && "ml-4"
         )}
@@ -65,12 +66,29 @@ const AssetItem = (
         }
 
 
-        <span className="text-sm text-primary font-semibold">
+        <span className="text-md text-primary font-semibold">
           {asset?.name}
         </span>
+
+        {typeAsset === "component" && asset.sensorType && asset.sensorType === "energy" && (
+          <BoltIcon className={classNames("w-5 h-5",
+            asset.status === "operating" ? "text-[#52C41A]" : "text-[#ED3833]"
+          )} />
+        )}
+
+        {typeAsset === "component" && asset.sensorType && asset.sensorType === "vibration" && (
+          <>
+            {asset.status === "operating" ? (
+              <Image src="/icons/operating.png" alt="Vibration" width={8} height={8} className="w-2 h-2" />
+            ) : (
+              <Image src="/icons/alert.png" alt="Alert" width={8} height={8} className="w-2 h-2" />
+            )}
+          </>
+        )}
+
       </div>
       {!isEmpty && isExpanded && asset.children && (
-        <div>
+        <div className="flex flex-col gap-2">
           {asset.children.map((child) => (
             <AssetItem
               key={child.id}

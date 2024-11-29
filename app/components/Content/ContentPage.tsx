@@ -55,7 +55,7 @@ const ContentPage = () => {
 
 
   return (
-    <div className='flex flex-col w-full p-4 gap-2 rounded border bg-secondary'>
+    <div className='flex flex-col w-full p-4 gap-2 h-[calc(100dvh-8dvh)] max-h-[calc(100dvh-8dvh)] rounded border bg-secondary'>
       {companySelected ?
         <Fragment>
           <ContentHeader companySelected={companySelected} />

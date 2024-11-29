@@ -7,10 +7,11 @@ import AssetInfo from './AssetInfo'
 import { Assets, Locations } from '../../enum/Types'
 
 const ContentPage = () => {
-  const { companySelected, setAssets } = useFiltersContext()
+  const { companySelected, setAssets, setLoading } = useFiltersContext()
 
   useEffect(() => {
     setAssets([]);
+    setLoading(true);
     if (!companySelected) return;
 
     const fetchAssets = async () => {
@@ -48,9 +49,10 @@ const ContentPage = () => {
         console.error(error);
         setAssets([]);
       }
-    };
+    }
 
     void fetchAssets();
+
   }, [companySelected, setAssets]);
 
 

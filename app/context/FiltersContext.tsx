@@ -14,6 +14,8 @@ export interface FiltersContextProps {
   assets: Assets[];
   setAssets: (assets: Assets[]) => void;
   organizedAssets: AssetsOrganized[];
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 
@@ -29,6 +31,8 @@ export const FiltersContext = createContext<FiltersContextProps>({
   assets: [],
   setAssets: () => { },
   organizedAssets: [],
+  loading: false,
+  setLoading: () => { },
 });
 
 export const useFiltersContext = () => useContext(FiltersContext);
@@ -46,53 +50,65 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
   const [filterName, setFilterName] = React.useState<string>('')
   const [filterComponentType, setFilterComponentType] = React.useState<string>('')
   const [filterStatus, setFilterStatus] = React.useState<string>('')
+  const [loading, setLoading] = React.useState<boolean>(false)
 
   useEffect(() => {
-    organizeAssets()
+    setLoading(true)
+    if (assets.length > 0) {
+      console.log('organizeAssets')
+      organizeAssets()
+      setLoading(false)
+    }
   }, [assets, filterName, filterComponentType, filterStatus])
 
   const organizeAssets = () => {
-    const organized: AssetsOrganized[] = []
+    // Criação de um mapa para armazenar filhos e reduzir buscas repetidas
+    const assetMap = new Map<string, AssetsOrganized>();
+
+    // Primeira passagem: cria um mapa de todos os ativos e inicializa os filhos vazios
     assets.forEach((asset) => {
-      if (!asset.parentId && !asset.locationId) {
-        organized.push({
-          ...asset,
-          children: getChildren(asset.id)
-        })
+      assetMap.set(asset.id, { ...asset, children: [] });
+    });
+
+    // Segunda passagem: organiza os filhos no mapa
+    assets.forEach((asset) => {
+      if (asset.parentId || asset.locationId) {
+        const parent = assetMap.get(asset.parentId || asset.locationId || "");
+        if (parent) {
+          parent.children.push(assetMap.get(asset.id)!);
+        }
       }
-    })
+    });
 
-    setOrganizedAssets(filterAssets(organized))
-  }
+    // Filtra os ativos principais (sem parentId e locationId)
+    const rootAssets = Array.from(assetMap.values()).filter(
+      (asset) => !asset.parentId && !asset.locationId
+    );
 
-  const filterAssets = (assets: AssetsOrganized[]): AssetsOrganized[] => {
-    return assets.reduce((acc: AssetsOrganized[], asset) => {
-      const filteredChildren = filterAssets(asset.children);
+    // Filtra os ativos de acordo com os critérios
+    const filteredAssets = filterAssets(rootAssets);
 
-      const matchesFilter =
-        (!filterName || asset.name.toLowerCase().includes(filterName.toLowerCase())) &&
-        (!filterComponentType || asset.sensorType === filterComponentType) &&
-        (!filterStatus || asset.status === filterStatus);
-
-      if (matchesFilter || filteredChildren.length > 0) {
-        acc.push({
-          ...asset,
-          children: filteredChildren
-        });
-      }
-
-      return acc;
-    }, []);
+    setOrganizedAssets(filteredAssets);
   };
 
-  const getChildren = (parentId: string): AssetsOrganized[] => {
+  const filterAssets = (assets: AssetsOrganized[]): AssetsOrganized[] => {
     return assets
-      .filter((location) => (location.parentId === parentId || location.locationId === parentId))
-      .map((location) => ({
-        ...location,
-        children: getChildren(location.id)
-      }))
-  }
+      .map((asset) => {
+        const filteredChildren = filterAssets(asset.children);
+
+        const matchesFilter =
+          (!filterName || asset.name.toLowerCase().includes(filterName.toLowerCase())) &&
+          (!filterComponentType || asset.sensorType === filterComponentType) &&
+          (!filterStatus || asset.status === filterStatus);
+
+        // Retorna o ativo se ele ou seus filhos atenderem aos critérios
+        return matchesFilter || filteredChildren.length > 0
+          ? { ...asset, children: filteredChildren }
+          : null;
+      })
+      .filter(Boolean) as AssetsOrganized[];
+  };
+
 
   const values = {
     companySelected,
@@ -106,6 +122,8 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
     setFilterComponentType,
     filterStatus,
     setFilterStatus,
+    loading,
+    setLoading
   }
   return (
     <FiltersContext.Provider value={values}>

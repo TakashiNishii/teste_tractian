@@ -2,7 +2,6 @@
 import { AssetsOrganized } from "../../enum/Types"
 import { BoltIcon, ChevronDownIcon, ChevronRightIcon, MapPinIcon } from "@heroicons/react/16/solid";
 import classNames from "classnames";
-import { useFiltersContext } from "../../context/FiltersContext";
 import { useState } from "react";
 import Image from "next/image";
 import { CubeIcon } from "@heroicons/react/24/outline";
@@ -16,7 +15,6 @@ interface AssetItemProps extends React.HTMLAttributes<HTMLDivElement> {
 const AssetItem = (
   { asset, typeAsset, level, isEmpty, className }: AssetItemProps
 ) => {
-  const { assets } = useFiltersContext()
   const [isExpanded, setIsExpanded] = useState(true);
 
   const toggleExpand = () => {
@@ -27,10 +25,6 @@ const AssetItem = (
 
   const paddingLeft = `${level * 1.5 + 0.75}rem`;
 
-
-  const verifyIsEmpty = (assetId: string) => {
-    return assets?.filter((asset) => (asset.parentId === assetId || asset.locationId === assetId)).length === 0
-  }
   return (
     <>
       <div
@@ -93,7 +87,7 @@ const AssetItem = (
             <AssetItem
               key={child.id}
               asset={child}
-              isEmpty={verifyIsEmpty(child.id)}
+              isEmpty={child.children.length === 0}
               typeAsset={child.typeAssets}
               level={level + 1}
             />

@@ -11,7 +11,7 @@
 https://github.com/user-attachments/assets/8da79739-7600-4db0-b96f-b750564e20e1
 
 
-> O projeto também está disponível em: 
+> O projeto também está disponível em: (https://teste-tractian.vercel.app)
 
 
 ### Ajustes e melhorias

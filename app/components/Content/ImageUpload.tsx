@@ -42,25 +42,25 @@ export default function ImageUpload({ onChange, value }: ImageUploadProps) {
         className="absolute inset-0 w-full  min-h-[250px] opacity-0 cursor-pointer z-10"
         aria-label="Adicionar imagem do Ativo"
       />
-      <div className="border-2 border-dashed  min-h-[250px] border-blue-400 rounded-lg p-8 flex flex-col items-center justify-center gap-2 bg-blue-50/50 hover:bg-blue-50 transition-colors">
-        {preview ? (
-          <div className="relative w-full h-[160px]">
-            <Image
-              src={preview}
-              alt="Preview"
-              fill
-              className="object-contain"
-            />
-          </div>
-        ) : (
-          <>
-            <InboxIcon className="w-10 h-10 text-blue-400" />
-            <span className="text-blue-400 text-sm">
-              Adicionar imagem do Ativo
-            </span>
-          </>
-        )}
-      </div>
+      {preview ? (
+        <div className="relative w-full h-[250px]">
+          <Image
+            src={preview}
+            alt="Preview"
+            fill
+            className="object-contain"
+          />
+        </div>
+      ) : (
+        <div className="border-2 border-dashed min-h-[250px] border-blue-400 rounded-lg  flex flex-col items-center justify-center gap-2 bg-blue-50/50 hover:bg-blue-50 transition-colors">
+
+          <InboxIcon className="w-10 h-10 text-blue-400" />
+          <span className="text-blue-400 text-sm">
+            Adicionar imagem do Ativo
+          </span>
+        </div>
+      )}
+
     </div>
   )
 }

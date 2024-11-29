@@ -29,9 +29,9 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="flex justify-between bg-primary w-full h-12 px-4 py-3 text-white text-center items-center">
+    <header className="flex flex-col md:flex-row md:h-12 gap-2 justify-between bg-primary w-full px-4 py-3 text-white text-center items-center">
       <Image src="/images/logo.png" alt="Logo Tractian" width={102} height={14} className='max-h-4' />
-      <div className='flex flex-row gap-3'>
+      <div className='flex flex-row flex-wrap gap-3'>
         {companies
           .sort((a, b) => a.name.localeCompare(b.name))
           .map((company) => (

@@ -57,11 +57,11 @@ const ContentPage = () => {
 
 
   return (
-    <div className='flex flex-col w-full p-4 gap-2 h-[calc(100dvh-8dvh)] max-h-[calc(100dvh-8dvh)] rounded border bg-secondary'>
+    <div className='flex flex-col w-full p-4 gap-2 md:h-[calc(100dvh-8dvh)] md:max-h-[calc(100dvh-8dvh)] rounded border bg-secondary'>
       {companySelected ?
         <Fragment>
           <ContentHeader companySelected={companySelected} />
-          <div className='flex flex-row gap-2'>
+          <div className='flex flex-col md:flex-row gap-2'>
             <AssetTree />
             <AssetInfo />
           </div>

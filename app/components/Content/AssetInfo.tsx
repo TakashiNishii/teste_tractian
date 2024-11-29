@@ -31,7 +31,7 @@ const AssetInfo = () => {
             )}
           </h2>
           <div className='flex flex-col gap-6 p-6'>
-            <div className='flex flex-row gap-6'>
+            <div className='flex flex-col md:flex-row gap-6'>
               <ImageUpload />
               <div className='flex-1 flex flex-col gap-6'>
                 <div className='flex flex-col gap-2'>

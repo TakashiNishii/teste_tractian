@@ -9,12 +9,12 @@ import { Cog8ToothIcon } from '@heroicons/react/16/solid'
 const AssetTree = () => {
   const { loading } = useFiltersContext()
   return (
-    <div className='flex flex-col min-w-[25%] border rounded-sm'>
+    <div className='flex flex-col w-full md:max-w-[25%] md:min-w-[25%] border rounded-sm'>
       <SearchAsset />
       {!loading ?
         <AssetList />
         :
-        <div className='flex flex-row gap-2 h-[calc(100dvh-25dvh)] justify-center'>
+        <div className='flex flex-row gap-2 md:h-[calc(100dvh-25dvh)] justify-center'>
           <Cog8ToothIcon className='w-8 h-8 animate-spin text-accent mt-2' />
           <span className='text-accent animate-pulse mt-2'>
             Carregando...

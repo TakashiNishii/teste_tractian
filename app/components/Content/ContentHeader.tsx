@@ -12,7 +12,7 @@ const ContentHeader = (
 ) => {
   const { filterComponentType, setFilterComponentType, filterStatus, setFilterStatus } = useFiltersContext()
   return (
-    <div className='flex flex-row justify-between'>
+    <div className='flex flex-col md:flex-row justify-between'>
       <h1 className='flex items-center gap-2 font-semibold text-xl'>
         Ativos
         <span className='text-gray-600 font-normal text-sm'>

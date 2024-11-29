@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import Image from "next/image";
 import { CubeIcon } from "@heroicons/react/24/outline";
+import { useFiltersContext } from "../../context/FiltersContext";
 
 interface AssetItemProps extends React.HTMLAttributes<HTMLDivElement> {
   asset: AssetsOrganized;
@@ -17,9 +18,14 @@ const AssetItem = (
 ) => {
   const [isExpanded, setIsExpanded] = useState(true);
 
+  const { setSelectedAsset } = useFiltersContext()
+
   const toggleExpand = () => {
     if (!isEmpty) {
       setIsExpanded(!isExpanded);
+    }
+    if (typeAsset === "component") {
+      setSelectedAsset(asset);
     }
   };
 

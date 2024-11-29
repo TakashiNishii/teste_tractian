@@ -14,6 +14,8 @@ export interface FiltersContextProps {
   assets: Assets[];
   setAssets: (assets: Assets[]) => void;
   organizedAssets: AssetsOrganized[];
+  selectedAsset?: Assets;
+  setSelectedAsset: (asset: Assets) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
 }
@@ -31,6 +33,8 @@ export const FiltersContext = createContext<FiltersContextProps>({
   assets: [],
   setAssets: () => { },
   organizedAssets: [],
+  selectedAsset: undefined,
+  setSelectedAsset: () => { },
   loading: false,
   setLoading: () => { },
 });
@@ -47,6 +51,7 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
   >(undefined);
   const [assets, setAssets] = React.useState<Assets[]>([])
   const [organizedAssets, setOrganizedAssets] = React.useState<AssetsOrganized[]>([])
+  const [selectedAsset, setSelectedAsset] = React.useState<Assets | undefined>(undefined)
   const [filterName, setFilterName] = React.useState<string>('')
   const [filterComponentType, setFilterComponentType] = React.useState<string>('')
   const [filterStatus, setFilterStatus] = React.useState<string>('')
@@ -123,7 +128,9 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
     filterStatus,
     setFilterStatus,
     loading,
-    setLoading
+    setLoading,
+    selectedAsset,
+    setSelectedAsset
   }
   return (
     <FiltersContext.Provider value={values}>

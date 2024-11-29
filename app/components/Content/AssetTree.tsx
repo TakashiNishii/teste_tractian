@@ -15,9 +15,9 @@ const AssetTree = () => {
       {!loading ?
         <AssetList />
         :
-        <div className='flex flex-row gap-2'>
-          <Cog8ToothIcon className='w-8 h-8 animate-spin text-accent' />
-          <span className='text-accent animate-pulse'>
+        <div className='flex flex-row gap-2 h-[calc(100dvh-25dvh)] justify-center'>
+          <Cog8ToothIcon className='w-8 h-8 animate-spin text-accent mt-2' />
+          <span className='text-accent animate-pulse mt-2'>
             Carregando...
           </span>
         </div>

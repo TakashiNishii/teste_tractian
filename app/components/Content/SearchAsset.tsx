@@ -15,11 +15,11 @@ const SearchAsset = () => {
   }, [search])
 
   return (
-    <div className="relative max-w-xl w-full border animate-none">
+    <div className="relative max-w-xl w-full border-b animate-none">
       <input
         type="text"
         placeholder="Buscar Ativo ou Local"
-        className="w-full pl-4 pr-12 h-12 outline-none border-b focus:ring-0"
+        className="w-full pl-4 pr-12 h-12 outline-none focus:ring-0"
         defaultValue={filterName}
         onChange={(e) => setSearch(e.target.value)}
       />

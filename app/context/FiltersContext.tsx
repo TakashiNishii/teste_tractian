@@ -38,11 +38,11 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
 
   const organizeAssets = () => {
     const organized: AssetsOrganized[] = []
-    assets.forEach((location) => {
-      if (!location.parentId) {
+    assets.forEach((asset) => {
+      if (!asset.parentId && !asset.locationId) {
         organized.push({
-          ...location,
-          children: getChildren(location.id)
+          ...asset,
+          children: getChildren(asset.id)
         })
       }
     })
@@ -51,7 +51,7 @@ export const FiltersProvider: React.FC<FiltersContextProviderProps> = ({ childre
 
   const getChildren = (parentId: string): AssetsOrganized[] => {
     return assets
-      .filter((location) => location.parentId === parentId)
+      .filter((location) => (location.parentId === parentId || location.locationId === parentId))
       .map((location) => ({
         ...location,
         children: getChildren(location.id)

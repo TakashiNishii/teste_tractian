@@ -6,6 +6,7 @@ import AssetItem from "./AssetItem"
 const AssetList = () => {
 
   const { organizedAssets } = useFiltersContext()
+  console.log(organizedAssets)
 
   return (
     <div className="flex flex-col gap-2 px-1 py-2">

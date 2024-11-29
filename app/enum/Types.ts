@@ -9,6 +9,7 @@ export interface Locations {
   parentId: string | null
 }
 export interface Assets extends Locations {
+  locationId?: string | null
   sensorId?: string | null
   sensorType?: string | null
   status?: string | null

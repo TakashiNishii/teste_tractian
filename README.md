@@ -11,6 +11,9 @@
 https://github.com/user-attachments/assets/8da79739-7600-4db0-b96f-b750564e20e1
 
 
+> O projeto também está disponível em: 
+
+
 ### Ajustes e melhorias
 
 O que eu recomendaria de melhorias para esse projeto seria:
@@ -40,8 +43,12 @@ yarn install
 
 Para usar Tractian Test, siga estas etapas:
 
+Adicione o .env na raiz do projeto com as variaveis de ambientes especificados no arquivo env.example
+
+Logo em seguida, execute o seguinte comando no terminal:
+
 ```
 yarn dev
 ```
 
-> O projeto estará disponível em `http://localhost:3000`
+O projeto estará disponível em `http://localhost:3000`

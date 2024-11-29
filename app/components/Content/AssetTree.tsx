@@ -8,7 +8,6 @@ import { Cog8ToothIcon } from '@heroicons/react/16/solid'
 
 const AssetTree = () => {
   const { loading } = useFiltersContext()
-  console.log(loading)
   return (
     <div className='flex flex-col min-w-[25%] border rounded-sm'>
       <SearchAsset />

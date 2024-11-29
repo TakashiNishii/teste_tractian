@@ -15,7 +15,7 @@ export interface FiltersContextProps {
   setAssets: (assets: Assets[]) => void;
   organizedAssets: AssetsOrganized[];
   selectedAsset?: Assets;
-  setSelectedAsset: (asset: Assets) => void;
+  setSelectedAsset: (asset: Assets | undefined) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
 }

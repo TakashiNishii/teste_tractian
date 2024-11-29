@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { useFiltersContext } from '../context/FiltersContext'
 
 const Header = () => {
-  const { companySelected, setCompanySelected } = useFiltersContext()
+  const { companySelected, setCompanySelected, setSelectedAsset } = useFiltersContext()
   const [companies, setCompanies] = React.useState<Company[]>([])
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -38,6 +38,7 @@ const Header = () => {
             <button
               key={company.id}
               onClick={() => {
+                setSelectedAsset(undefined)
                 setCompanySelected(company)
               }}
               className={classNames('btn items-center py-1 px-2 rounded-sm hover:opacity-75',

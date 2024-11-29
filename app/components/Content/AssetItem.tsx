@@ -18,7 +18,7 @@ const AssetItem = (
 ) => {
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const { setSelectedAsset } = useFiltersContext()
+  const { selectedAsset, setSelectedAsset } = useFiltersContext()
 
   const toggleExpand = () => {
     if (!isEmpty) {
@@ -36,7 +36,8 @@ const AssetItem = (
       <div
         className={classNames("flex flex-row gap-1 cursor-pointer items-center hover:bg-gray-200",
           className,
-          isEmpty && "ml-4"
+          isEmpty && "ml-4",
+          selectedAsset?.id === asset.id && "bg-accent"
         )}
         onClick={toggleExpand}
         style={{ paddingLeft }}
@@ -62,11 +63,13 @@ const AssetItem = (
         }
         {
           typeAsset === "component" &&
-          <Image src="/icons/component.png" alt="Component" width={20} height={20} className="w-5 h-5" />
+          (selectedAsset?.id === asset.id ? <Image src="/icons/component_selected.png" alt="Component" width={20} height={20} className="w-5 h-5" /> : <Image src="/icons/component.png" alt="Component" width={20} height={20} className="w-5 h-5" />)
         }
 
 
-        <span className="text-md text-primary font-semibold">
+        <span className={classNames("text-md font-semibold",
+          selectedAsset?.id === asset.id ? "text-white" : "text-primary"
+        )}>
           {asset?.name}
         </span>
 

@@ -12,7 +12,7 @@ const AssetInfo = () => {
     <div className='flex flex-col flex-1 border rounded-sm'>
       {selectedAsset ? (
         <Fragment>
-          <h2 className='flex gap-2 text-lg font-semibold p-4 border-b'>
+          <h2 className='flex items-center gap-2 text-lg font-semibold p-4 border-b'>
             {selectedAsset.name}
             {selectedAsset.sensorType && selectedAsset.sensorType === "energy" && (
               <BoltIcon className={classNames("w-5 h-5",
@@ -78,7 +78,7 @@ const AssetInfo = () => {
           </div>
         </Fragment>
       ) : (
-        <h2>Selecione um ativo</h2>
+        <h2 className='flex gap-2 text-lg font-semibold p-4'>Selecione um ativo</h2>
       )}
     </div>
   )

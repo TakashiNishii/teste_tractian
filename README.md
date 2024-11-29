@@ -8,7 +8,7 @@
 
 ### Demonstração
 
-<video controls src="/public/Tractian Test - Opera 2024-11-29 15-47-13.mp4" title="Demonstração do projeto"></video>
+https://github.com/user-attachments/assets/8da79739-7600-4db0-b96f-b750564e20e1
 
 
 ### Ajustes e melhorias
